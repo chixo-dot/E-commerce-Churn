@@ -1,0 +1,21 @@
+import streamlit as st
+import pickle
+
+# Load your trained model
+with open('model.sav', 'rb') as f:
+    model = pickle.load(f)
+
+# Define the app title
+st.title('Ecom churn predictions App')
+
+# Get user input
+Tenure = st.number_input('Tenure', value=0.0)
+WarehouseToHome = st.number_input('WarehouseToHome', value=0.0)
+
+# Create a predict button
+if st.button('Predict'):
+    # Make predictions
+    prediction = model.predict([[Tenure, WarehouseToHome]]) 
+
+    # Display predictions
+    st.success(f'The prediction is: {prediction}')
